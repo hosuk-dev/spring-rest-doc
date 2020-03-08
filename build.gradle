@@ -1,0 +1,59 @@
+plugins {
+	id 'org.springframework.boot' version '2.2.4.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+	id 'org.asciidoctor.convert' version '1.5.8'    //asciidoctor 플러그인 적
+	id 'java'
+}
+
+group = 'com.hosuk.api'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+	developmentOnly
+	runtimeClasspath {
+		extendsFrom developmentOnly
+	}
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+ext {
+	set('snippetsDir', file("build/generated-snippets"))    //snippets가 생성되는 경로 지
+}
+
+//그래들 빌드시 ./build/asciidoctor/html5 경로에 html파일 생김
+//into "static/docs" 는 jar로 빌드할때 jar안에 static/doc경로에 생기도록 하기위한 설
+bootJar {
+    dependsOn asciidoctor
+    from ("${asciidoctor.outputDir}/html5") {
+        into "static/docs"
+    }
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'   //restdoc mockmvc 테스트 디펜던시 적
+}
+
+test {
+	outputs.dir snippetsDir
+	useJUnitPlatform()
+}
+
+asciidoctor {                                   //asciidoctor task설정
+    attributes 'snippets': snippetsDir          //당신의 문서에 생성된 코드조각을 포함할 때 사용될 속성값인 snippets 정의하기.
+	inputs.dir snippetsDir                      //입력값input으로 snippets 디렉토리 설정하기.
+	dependsOn test                              //test task에 의존하는 task를 만들어 문서가 생성되기전에 테스트를 돌릴 수 있게함.
+
+}

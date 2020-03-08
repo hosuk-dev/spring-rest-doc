@@ -1,0 +1,16 @@
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectlinks:
+
+= 응답 코드
+
+== 응답 코드
+|===
+| 코드 | 메세지
+
+| 0000 | 성공
+| 9999 | 실패
+|===

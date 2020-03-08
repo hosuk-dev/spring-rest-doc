@@ -1,0 +1,76 @@
+= CMS 차세대마키팅 시스템 연동 API Guide
+Daou;
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectlinks:
+
+
+[[overview]]
+== 공통 문서
+
+[[verview-http-verbs]]
+=== HTTP method 정의
+
+RESTful notes tries to adhere as closely as possible to standard HTTP and REST conventions in its
+use of HTTP verbs.의
+
+|===
+| Verb | Usage
+
+| `GET`
+| 테스트
+
+| `POST`
+| 테스트
+
+| `PATCH`
+| 테스트
+
+| `DELETE`
+| 테스트
+|===
+
+[[overview-http-status-codes]]
+=== HTTP status 정의
+
+RESTful notes tries to adhere as closely as possible to standard HTTP and REST conventions in its
+use of HTTP status codes.
+
+|===
+| Status code | Usage
+
+| `200 OK`
+| The request completed successfully
+
+| `201 Created`
+| A new resource has been created successfully. The resource's URI is available from the response's
+`Location` header
+
+| `204 No Content`
+| An update to an existing resource has been applied successfully
+
+| `400 Bad Request`
+| The request was malformed. The response body will include an error providing further information
+
+| `404 Not Found`
+| The requested resource did not exist
+|===
+
+.request
+include::{snippets}/home-controller-test/test-home/request-fields.adoc[]
+include::{snippets}/home-controller-test/test-home/http-request.adoc[]
+
+.response
+include::{snippets}/home-controller-test/test-home/response-fields.adoc[]
+include::{snippets}/home-controller-test/test-home/http-response.adoc[]
+
+//회원조회 목록
+include::user-search.adoc[]
+
+//응답 코드
+include::code.adoc[]
+
+
